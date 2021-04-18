@@ -10,7 +10,7 @@ def num(x, d):
         if x==d[i]:
             return i
 
-
+#Vanilla autoencoder used as basis of VAE
 class Encoder(Module):
     def __init__(self, n):
         super(Encoder, self).__init__()
@@ -79,8 +79,8 @@ class Autoencoder(Module):
         return y
 
 
-x0 = torch.load("code.dat")
-d = torch.load("dict.dat")
+x0 = torch.load("code.dat")#Codes of words from biography
+d = torch.load("dict.dat")#Words from biography, in order of their codes.
 
 
 loss_fn = CrossEntropyLoss()
@@ -90,7 +90,7 @@ optim = optimiser.RMSprop(VAE.parameters(), lr = 1e-4, centered = True)
 
 
 corr = 0.0
-for i in range(0, 1000):
+for i in range(0, 1000):#Training procedure
     x = []
     n = (torch.rand(100)*(x0.size(-1) - 15)).long()
     for j in range(0, 100):
